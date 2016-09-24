@@ -1,0 +1,37 @@
+<resources>
+    <string name="app_name">SEFD</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Senha</string>
+    <string name="action_sign_in">Entrar</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">Este endereço de e-mail é inválido</string>
+    <string name="error_invalid_password">Esta senha é muito curta</string>
+    <string name="error_incorrect_password">Essa senha está incorreta</string>
+    <string name="error_field_required">Este campo é obrigatório</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email completions."</string>
+    <string name="login_tv_cadastre_se">Primeiro acesso? Cadastre-se</string>
+    <string name="erro_conexao_indisponivel">Conexão indisponivel, por favor ative sua rede móvel ou Wi-Fi.</string>
+    <string name="usuario_e_ou_senha_invalido">Usuário e/ou senha invalidos.</string>
+    <string name="activity_criar_conta">Criar uma conta</string>
+    <string name="prompt_nome">Nome</string>
+    <string name="prompt_sobrenome">Sobrenome</string>
+    <string name="prompt_cpf">CPF</string>
+    <string name="salvar_btn">SALVAR</string>
+    <string name="error_invalid_cpf">Este CPF é inválido</string>
+    <string name="error_email_ja_registardo">Esse e-mail já está registrado</string>
+    <string name="form_tv_entrar">Você possui uma conta? Entre</string>
+    <string name="title_activity_main">SEFD</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="menu_drawer_inscricoes">Inscrições</string>
+    <string name="menu_drawer_eventos">Eventos</string>
+    <string name="menu_drawer_certificados">Certificados</string>
+</resources>
