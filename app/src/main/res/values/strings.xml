@@ -36,4 +36,5 @@
     <string name="menu_drawer_certificados">Certificados</string>
     <string name="title_activity_perfil">Perfil</string>
     <string name="menu_drawer_perfil">Perfil</string>
+    <string name="text_nome">Nome</string>
 </resources>
