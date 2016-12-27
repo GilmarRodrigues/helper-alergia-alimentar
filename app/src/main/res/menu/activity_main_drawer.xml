@@ -19,6 +19,10 @@
     <item android:title="Communicate">
         <menu>
             <item
+                android:id="@+id/nav_peril"
+                android:icon="@drawable/ic_menu_peril"
+                android:title="@string/menu_drawer_perfil" />
+            <item
                 android:id="@+id/nav_share"
                 android:icon="@drawable/ic_menu_share"
                 android:title="Convide seus amigos" />

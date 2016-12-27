@@ -1,39 +1,43 @@
 package br.com.eventoseartigos.sefd.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.internal.NavigationMenuItemView;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.util.Log;
-import android.view.View;
-import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
-import java.io.Serializable;
-
 import br.com.eventoseartigos.sefd.R;
+import br.com.eventoseartigos.sefd.annotation.Transacao;
 import br.com.eventoseartigos.sefd.dao.Prefs;
 import br.com.eventoseartigos.sefd.fragment.EventosFragment;
 import br.com.eventoseartigos.sefd.fragment.InscricoesFragment;
+import br.com.eventoseartigos.sefd.model.ListUsuario;
 import br.com.eventoseartigos.sefd.model.Login;
+import br.com.eventoseartigos.sefd.model.Usuario;
+import br.com.eventoseartigos.sefd.service.UsuarioService;
 
 public class MainActivity extends BaseActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, Transacao {
+    private TextView campo_email;
+    private TextView campo_nome;
+    private String token;
+    private Usuario usuario;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -60,21 +64,29 @@ public class MainActivity extends BaseActivity
             Prefs.setString(this, Login.EMAIL, login.getUserName());
         }
 
-        TextView campo_email = (TextView) headerView.findViewById(R.id.tv_email);
-        String email = Prefs.getString(this, Login.EMAIL);
-        if (!email.equals("")) {
-            //campo_email.setText(email);
-        }
+        token = Prefs.getString(this, "token");
+
+        campo_email = (TextView) headerView.findViewById(R.id.tv_email);
+        campo_nome = (TextView) headerView.findViewById(R.id.tv_username);
 
         setFirstItemNavigationView(navigationView);
+
+        startTrasacaoSemProgress(this);
+    }
+
+    private void setUser() {
+        String email = Prefs.getString(this, Login.EMAIL);
+        if (email != "") {
+            campo_email.setText(email);
+        }
+        campo_nome.setText(usuario.getFirstName()+" "+ usuario.getLastName());
     }
 
     private void setFirstItemNavigationView(NavigationView navigationView) {
-        replaceFragment(new EventosFragment());
+        //replaceFragment(new EventosFragment());
         navigationView.setCheckedItem(R.id.nav_eventos);
         navigationView.getMenu().performIdentifierAction(R.id.nav_eventos, 0);
     }
-
 
 
     @Override
@@ -119,7 +131,11 @@ public class MainActivity extends BaseActivity
             replaceFragment(new InscricoesFragment());
         } else if (id == R.id.nav_certificados) {
 
-        } else if (id == R.id.nav_share) {
+        } else if(id == R.id.nav_peril){
+            Intent intent = new Intent(this, PerfilActivity.class);
+            intent.putExtra(Usuario.KEY, usuario);
+            startActivity(intent);
+        }else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
 
@@ -134,4 +150,13 @@ public class MainActivity extends BaseActivity
         getSupportFragmentManager().beginTransaction().replace(R.id.nav_drawer_cotainer, frag, "TAG").commit();
     }
 
+    @Override
+    public void executar() throws Exception {
+        usuario = UsuarioService.getUsuario(token);
+    }
+
+    @Override
+    public void atualizarView() {
+        setUser();
+    }
 }

@@ -70,7 +70,7 @@ public class UsuarioValidator extends Validator {
     }
 
     public static boolean validatePassword(String password) {
-        return password.length() > 5;
+        return password.length() > 7;
     }
 
     public static boolean validatorEmailExiste(String json) {

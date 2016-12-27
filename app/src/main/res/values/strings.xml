@@ -34,4 +34,6 @@
     <string name="menu_drawer_inscricoes">Inscrições</string>
     <string name="menu_drawer_eventos">Eventos</string>
     <string name="menu_drawer_certificados">Certificados</string>
+    <string name="title_activity_perfil">Perfil</string>
+    <string name="menu_drawer_perfil">Perfil</string>
 </resources>

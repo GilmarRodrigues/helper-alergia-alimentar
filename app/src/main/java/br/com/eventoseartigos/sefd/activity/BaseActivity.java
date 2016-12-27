@@ -27,6 +27,15 @@ public class BaseActivity extends AppCompatActivity {
         }
     }
 
+    public void  startTrasacaoSemProgress(Transacao transacao) {
+        boolean redOk = AndroidUtils.isNetworkAvailable(this);
+        if (redOk) {
+            new TransacaoTask(this, transacao, false).execute();
+        } else {
+            Toast.makeText(this, getString(R.string.erro_conexao_indisponivel), Toast.LENGTH_SHORT).show();
+        }
+    }
+
     public void setProgress(View progressView) {
         this.mProgressView = progressView;
     }

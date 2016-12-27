@@ -5,6 +5,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONStringer;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import br.com.eventoseartigos.sefd.model.Usuario;
 
 /**
@@ -32,7 +35,7 @@ public class UsuarioConverter {
         try {
             //{"email":["Esse e-mail já está registrado."]}
 
-            JSONObject root =new JSONObject(json);//{ }
+            JSONObject root = new JSONObject(json);//{ }
             JSONArray array = root.getJSONArray("email");//"email":[]
             String email = array.optString(0);
             return email;
@@ -41,5 +44,21 @@ public class UsuarioConverter {
         }
         return null;
 
+    }
+
+    public static Usuario converteUsuarioParaString(String json) {
+        try {
+            JSONObject root = new JSONObject(json);
+            Usuario u = new Usuario();
+            u.setFirstName(root.optString("first_name"));
+            u.setLastName(root.optString("last_name"));
+            u.setCpf(root.optString("cpf"));
+
+            return u;
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

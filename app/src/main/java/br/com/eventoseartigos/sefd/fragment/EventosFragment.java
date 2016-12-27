@@ -1,6 +1,7 @@
 package br.com.eventoseartigos.sefd.fragment;
 
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -15,6 +16,7 @@ import android.view.ViewGroup;
 import java.util.List;
 
 import br.com.eventoseartigos.sefd.R;
+import br.com.eventoseartigos.sefd.activity.PerfilActivity;
 import br.com.eventoseartigos.sefd.annotation.Transacao;
 import br.com.eventoseartigos.sefd.dao.Prefs;
 import br.com.eventoseartigos.sefd.model.Evento;
@@ -36,6 +38,7 @@ public class EventosFragment extends BaseFragment implements Transacao{
 
         setProgress(view.findViewById(R.id.progress));
         setFormView(view.findViewById(R.id.layout_progress));
+
         return view;
     }
 
@@ -60,6 +63,10 @@ public class EventosFragment extends BaseFragment implements Transacao{
 
     @Override
     public void atualizarView() {
+        carregaLista();
+    }
+
+    private void carregaLista() {
 
     }
 }

@@ -19,7 +19,14 @@ public class TransacaoTask extends AsyncTask<Object, Object, Boolean> {
     private Throwable exceptionErro;
     private View mProgressView;
     private View mFormView;
+    private boolean progress = true;
     private static final String TAG = "TransacaoTask";
+
+    public TransacaoTask(Context context, Transacao transacao, boolean progress) {
+        this.mContext = context;
+        this.mTransacao = transacao;
+        this.progress = progress;
+    }
 
     public TransacaoTask(Context context, Transacao transacao, View progressView, View formView) {
         this.mContext = context;
@@ -28,11 +35,13 @@ public class TransacaoTask extends AsyncTask<Object, Object, Boolean> {
         this.mFormView = formView;
     }
 
+
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
         try {
-            showProgress(true);
+            if (progress)
+                showProgress(true);
         } catch (Exception e) {
             Log.e(TAG, e.getMessage(), e);
         }
@@ -53,14 +62,16 @@ public class TransacaoTask extends AsyncTask<Object, Object, Boolean> {
 
     @Override
     protected void onPostExecute(Boolean resposta) {
-        showProgress(false);
+        if (progress)
+            showProgress(false);
         mTransacao.atualizarView();
     }
 
     @Override
     protected void onCancelled() {
         super.onCancelled();
-        showProgress(false);
+        if (progress)
+            showProgress(false);
     }
 
     private void showProgress(final boolean show) {

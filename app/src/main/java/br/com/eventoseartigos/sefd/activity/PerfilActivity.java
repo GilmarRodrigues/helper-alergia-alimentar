@@ -1,12 +1,20 @@
 package br.com.eventoseartigos.sefd.activity;
 
 import android.os.Bundle;
+import android.os.Parcelable;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import br.com.eventoseartigos.sefd.R;
 import br.com.eventoseartigos.sefd.annotation.Transacao;
+import br.com.eventoseartigos.sefd.dao.Prefs;
+import br.com.eventoseartigos.sefd.model.ListUsuario;
 import br.com.eventoseartigos.sefd.model.Login;
 import br.com.eventoseartigos.sefd.model.Usuario;
 import br.com.eventoseartigos.sefd.service.LoginService;
@@ -14,50 +22,50 @@ import br.com.eventoseartigos.sefd.service.UsuarioService;
 import br.com.eventoseartigos.sefd.utils.MaskUtils;
 import br.com.eventoseartigos.sefd.validator.UsuarioValidator;
 
-public class UsuarioFormActivity extends BaseActivity implements Transacao{
-    private static final String TAG = "UsuarioFormActivity";
+public class PerfilActivity extends BaseActivity implements Transacao {
+    private static final String TAG = "PerfilActivity";
     private EditText campo_nome;
     private EditText campo_sobrenome;
     private EditText campo_cpf;
-    private EditText campo_email;
     private EditText campo_password;
-    private boolean emailExiste;
     private Usuario mUsuario;
+    private String token;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_usuario_form);
+        setContentView(R.layout.activity_perfil);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        //Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         campo_nome = (EditText) findViewById(R.id.et_first_name);
         campo_sobrenome = (EditText) findViewById(R.id.et_last_name);
         campo_cpf = (EditText) findViewById(R.id.et_cpf);
         campo_cpf.addTextChangedListener(MaskUtils.insert("###.###.###-##", campo_cpf));
-        campo_email = (EditText) findViewById(R.id.et_email);
         campo_password = (EditText) findViewById(R.id.et_password);
 
         findViewById(R.id.salvar_button).setOnClickListener(onClickSalvarFormulario());
-        findViewById(R.id.tv_entrar).setOnClickListener(onClickEntrar());
 
         setFormView(findViewById(R.id.usuario_form_scroll));
         setProgress(findViewById(R.id.form_usuario_progress));
+
+        mUsuario = getIntent().getParcelableExtra(Usuario.KEY);
+        if (mUsuario != null)
+            setUsuario(mUsuario);
+
+        token = Prefs.getString(this, "token");
     }
 
-    private View.OnClickListener onClickEntrar() {
-        return new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        };
-    }
 
     private View.OnClickListener onClickSalvarFormulario() {
         return new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (!validator()) {
-                    startTrasacao(UsuarioFormActivity.this);
+                    startTrasacao(PerfilActivity.this);
                 }
             }
         };
@@ -65,41 +73,30 @@ public class UsuarioFormActivity extends BaseActivity implements Transacao{
 
     @Override
     public void executar() throws Exception {
-
         mUsuario = new Usuario();
         mUsuario.setFirstName(campo_nome.getText().toString());
         mUsuario.setLastName(campo_sobrenome.getText().toString());
         mUsuario.setCpf(campo_cpf.getText().toString());
-        mUsuario.setEmail(campo_email.getText().toString());
         mUsuario.setPassword(campo_password.getText().toString());
 
-        String json = UsuarioService.setUsuario(mUsuario);
-        emailExiste = UsuarioValidator.validatorEmailExiste(json);
-        if (!emailExiste) {
-            // Faz login(automaticamente) depois que se cadastrar...
-            Login login = new Login(mUsuario.getEmail(), mUsuario.getPassword());
-            String token = LoginService.getLogin(login);
-        }
-
+        String json = UsuarioService.update(mUsuario, token);
     }
 
     @Override
     public void atualizarView() {
-        if (emailExiste) {
-            campo_email.setError(getString(R.string.error_email_ja_registardo));
-            campo_email.setFocusable(true);
-            campo_email.requestFocus();
-        } else {
-            Toast.makeText(this, "Cadastrado com sucesso", Toast.LENGTH_SHORT).show();
-            finish();
-        }
+        Toast.makeText(this, "Atualizado com sucesso", Toast.LENGTH_SHORT).show();
+    }
+
+    private void setUsuario(Usuario usuario) {
+        campo_nome.setText(usuario.getFirstName());
+        campo_sobrenome.setText(usuario.getLastName());
+        campo_cpf.setText(usuario.getCpf());
     }
 
     private boolean validator() {
         campo_nome.setError(null);
         campo_sobrenome.setError(null);
         campo_cpf.setError(null);
-        campo_email.setError(null);
         campo_password.setError(null);
 
         boolean nome_valido = UsuarioValidator.validateNotNull(campo_nome, getString(R.string.error_field_required));
@@ -121,13 +118,6 @@ public class UsuarioFormActivity extends BaseActivity implements Transacao{
             campo_cpf.requestFocus();
             return true;
         }
-        boolean email_valido = UsuarioValidator.valitadeEmail(campo_email.getText().toString());
-        if (!email_valido) {
-            campo_email.setError(getString(R.string.error_invalid_email));
-            campo_email.setFocusable(true);
-            campo_email.requestFocus();
-            return true;
-        }
         boolean password_valido = UsuarioValidator.validatePassword(campo_password.getText().toString().trim());
         if (!password_valido) {
             campo_password.setError(getString(R.string.error_invalid_password));
@@ -138,7 +128,4 @@ public class UsuarioFormActivity extends BaseActivity implements Transacao{
 
         return false;
     }
-
-
-
 }

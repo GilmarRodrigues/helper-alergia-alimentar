@@ -18,7 +18,7 @@ public class EventoConverter {
 
     public static List<Evento> converteEventoParaString(String json) {
         try {
-            //
+            //Log.i("Script", json);
             List<Evento> eventos = new ArrayList<>();
             JSONArray array = new JSONArray(json);
             for (int j = 0; j < array.length(); j++) {
@@ -40,7 +40,7 @@ public class EventoConverter {
                 e.setInicioInscricao(root.optString("inicio_inscricao"));
                 e.setTerminoInscricao(root.optString("termino_inscricao"));
 
-                JSONObject evento = root.getJSONObject("evento");
+                /*JSONObject evento = root.getJSONObject("evento");
                 e.setNomeEvento(evento.optString("nome"));
                 e.setSigleEvento(evento.optString("sigla"));
 
@@ -50,7 +50,7 @@ public class EventoConverter {
                     JSONObject jsonArea = areas.getJSONObject(i);
                     listNomeArea.add(jsonArea.optString("nome"));
                 }
-                e.setNomeAreas(listNomeArea);
+                e.setNomeAreas(listNomeArea);*/
 
                 e.setStatus(root.optString("status"));
 
