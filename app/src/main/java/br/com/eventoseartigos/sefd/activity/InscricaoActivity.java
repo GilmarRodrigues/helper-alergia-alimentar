@@ -208,7 +208,8 @@ public class InscricaoActivity extends BaseActivity implements Transacao {
     private void setMinicursoAtividade(final List<Grupos> gruposList, final int i, LinearLayout layout, String manhaOuTarde) {
         RadioGroup group = new RadioGroup(this);
         RadioButton buttonNull = new RadioButton(this);
-        buttonNull.setOnCheckedChangeListener(onClickMinicursoAtividadeNull());
+        buttonNull.setText("Nenhum");
+        buttonNull.setOnCheckedChangeListener(onClickMinicursoAtividadeNull(manhaOuTarde));
 
         group.addView(buttonNull);
         for (final Minicurso minicurso : gruposList.get(i).getMinicursos()) {
@@ -224,15 +225,17 @@ public class InscricaoActivity extends BaseActivity implements Transacao {
         layout.addView(group);
     }
 
-    private CompoundButton.OnCheckedChangeListener onClickMinicursoAtividadeNull() {
+    private CompoundButton.OnCheckedChangeListener onClickMinicursoAtividadeNull(final String manhaOuTarde) {
         return new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                minicursoManha = null;
-                minicursoTarde = null;
-                atividadeManha = null;
-                atividadeTarde = null;
-                setValorList();
+                if (manhaOuTarde == "Manhã") {
+                    updateValorHashMap("minicursoManha", 0.0);
+                    updateValorHashMap("atividadeManha", 0.0);
+                } else if (manhaOuTarde == "Tarde") {
+                    updateValorHashMap("minicursoTarde", 0.0);
+                    updateValorHashMap("atividadeTarde", 0.0);
+                }
                 updateValorTotal();
             }
         };
