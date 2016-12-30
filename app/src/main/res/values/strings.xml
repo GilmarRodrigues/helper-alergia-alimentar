@@ -37,4 +37,20 @@
     <string name="title_activity_perfil">Perfil</string>
     <string name="menu_drawer_perfil">Perfil</string>
     <string name="text_nome">Nome</string>
+    <string name="title_activity_inscricao">Inscrição</string>
+    <string name="text_tipo_inscricao">Tipo de Inscrição</string>
+    <string name="text_palestras">Palestras</string>
+    <string name="text_manha">Manhã</string>
+    <string name="text_tarde">Tarde</string>
+    <string name="btn_cancelar">Cancelar</string>
+    <string name="btn_save">Confirmar</string>
+    <string name="text_minicurso_atividade">Minicurso/Atividade</string>
+    <string name="text_vagas">Vagas</string>
+    <string name="text_profissional_descricao">Profissional/Descrição</string>
+    <string name="text_horario">Horário</string>
+    <string name="btn_ok">OK</string>
+    <string name="btn_confirmar">Confirmar</string>
+    <string name="text_Total">Total</string>
+    <string name="text_valor">Valor</string>
+    <string name="erro_verfiqueque_opcoes">Verifique se as opções desejadas estão selecionadas</string>
 </resources>

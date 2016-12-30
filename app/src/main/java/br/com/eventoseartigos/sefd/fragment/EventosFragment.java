@@ -1,18 +1,18 @@
 package br.com.eventoseartigos.sefd.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import java.util.List;
 
 import br.com.eventoseartigos.sefd.R;
+import br.com.eventoseartigos.sefd.activity.InscricaoActivity;
 import br.com.eventoseartigos.sefd.adapter.EventosAdapter;
 import br.com.eventoseartigos.sefd.annotation.Transacao;
 import br.com.eventoseartigos.sefd.dao.Prefs;
@@ -78,7 +78,9 @@ public class EventosFragment extends BaseFragment implements Transacao{
         return new EventosAdapter.OnClickListener() {
             @Override
             public void onClick(View view, int idx) {
-                Toast.makeText(getActivity(), mEventos.get(idx).getNome(), Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getActivity(), InscricaoActivity.class);
+                intent.putExtra(Evento.KEY, mEventos.get(idx));
+                startActivity(intent);
             }
         };
     }

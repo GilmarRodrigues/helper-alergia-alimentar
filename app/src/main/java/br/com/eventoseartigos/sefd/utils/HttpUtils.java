@@ -116,6 +116,54 @@ public class HttpUtils {
         return null;
     }
 
+    public static String doPost(String url, String json, String token) throws IOException {
+        if (LOG_ON) {
+            Log.d("Http", ">> Http.doPost: " + url);
+        }
+
+        URL u = new URL(url);
+        HttpURLConnection conn = null;
+
+        String s = null;
+
+        try {
+            conn = (HttpURLConnection) u.openConnection();
+            conn.setRequestMethod("POST");
+            conn.setRequestProperty("Content-type", "application/json");
+            conn.setRequestProperty("Accept", "application/json");
+            conn.setRequestProperty ("Authorization", "Token " + token);
+            conn.setConnectTimeout(10000);
+            conn.setReadTimeout(10000);
+            conn.setDoOutput(true);
+            conn.setDoInput(true);
+
+            conn.connect();
+
+            if (json != null) {
+                OutputStream e = conn.getOutputStream();
+                e.write(json.getBytes());
+                e.flush();
+                e.close();
+            }
+
+            InputStream el = null;
+            if (conn.getResponseCode() != 400) {
+                el = conn.getInputStream();
+            } else {
+                el = conn.getErrorStream();
+            }
+            s = IOUtils.toString(el, "UTF-8");
+
+            return s;
+
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
 
     public static String doPost(String url, Map<String, String> params, String charset) throws IOException {
         String queryString = getQueryString(params, charset);

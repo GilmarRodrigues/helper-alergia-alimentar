@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/white"
+        android:minWidth="@dimen/popup_width"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/activity_vertical_margin"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingTop="@dimen/activity_vertical_margin">
+
+            <TextView
+                android:id="@+id/tv_minicurso_atividade"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/abc_dialog_list_padding_vertical_material"
+                android:text="@string/text_minicurso_atividade" />
+
+            <TextView
+                android:id="@+id/tv_vagas"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/abc_dialog_list_padding_vertical_material"
+                android:text="@string/text_vagas" />
+
+            <TextView
+                android:id="@+id/tv_profissional_descricao"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/abc_dialog_list_padding_vertical_material"
+                android:text="@string/text_profissional_descricao" />
+
+            <TextView
+                android:id="@+id/tv_horario"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/abc_dialog_list_padding_vertical_material"
+                android:text="@string/text_horario" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/divider"
+                android:paddingBottom="@dimen/abc_dialog_list_padding_vertical_material" />
+
+            <LinearLayout
+                android:id="@+id/layout_horarios"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"></LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/activity_vertical_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin">
+
+            <Button
+                android:id="@+id/btn_ok"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
+                android:background="?attr/selectableItemBackground"
+                android:paddingLeft="3dp"
+                android:paddingRight="3dp"
+                android:text="@string/btn_ok"
+                android:textColor="@color/primary" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+</ScrollView>

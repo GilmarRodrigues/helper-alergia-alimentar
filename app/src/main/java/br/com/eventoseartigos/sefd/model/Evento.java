@@ -9,7 +9,8 @@ import java.util.List;
  * Created by gilmar on 15/09/16.
  */
 public class Evento implements Parcelable {
-    private static final String KEY = "evento";
+    public static final String KEY = "evento";
+    private String pk;
     private String cep;
     private String logradouro;
     private String numero;
@@ -32,7 +33,8 @@ public class Evento implements Parcelable {
     public Evento() {
     }
 
-    public Evento(String cep, String logradouro, String numero, String bairro, String cidade, String estado, String complemento, String nome, String edicao, String logomarca, String inicio, String termino, String inicioInscricao, String terminoInscricao, String nomeEvento, String sigleEvento, List<String> nomeAreas, String status) {
+    public Evento(String pk, String cep, String logradouro, String numero, String bairro, String cidade, String estado, String complemento, String nome, String edicao, String logomarca, String inicio, String termino, String inicioInscricao, String terminoInscricao, String nomeEvento, String sigleEvento, List<String> nomeAreas, String status) {
+        this.pk = pk;
         this.cep = cep;
         this.logradouro = logradouro;
         this.numero = numero;
@@ -54,6 +56,7 @@ public class Evento implements Parcelable {
     }
 
     protected Evento(Parcel in) {
+        pk = in.readString();
         cep = in.readString();
         logradouro = in.readString();
         numero = in.readString();
@@ -230,6 +233,14 @@ public class Evento implements Parcelable {
         this.status = status;
     }
 
+    public String getPk() {
+        return pk;
+    }
+
+    public void setPk(String pk) {
+        this.pk = pk;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -237,6 +248,7 @@ public class Evento implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(pk);
         parcel.writeString(cep);
         parcel.writeString(logradouro);
         parcel.writeString(numero);

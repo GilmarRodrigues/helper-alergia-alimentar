@@ -44,6 +44,13 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="br.com.eventoseartigos.sefd.activity.MainActivity" />
         </activity>
+        <activity android:name=".activity.InscricaoActivity"
+            android:label="@string/title_activity_inscricao"
+            android:parentActivityName=".activity.MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="br.com.eventoseartigos.sefd.activity.MainActivity" />
+        </activity>
     </application>
 
 </manifest>

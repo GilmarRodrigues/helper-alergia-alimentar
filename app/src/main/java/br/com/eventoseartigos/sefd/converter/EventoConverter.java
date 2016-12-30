@@ -25,6 +25,7 @@ public class EventoConverter {
                 JSONObject root = array.getJSONObject(j);
                 Evento e = new Evento();
 
+                e.setPk(root.optString("pk"));
                 e.setCep(root.optString("cep"));
                 e.setLogomarca(root.optString("logradouro"));
                 e.setNumero(root.optString("numero"));
