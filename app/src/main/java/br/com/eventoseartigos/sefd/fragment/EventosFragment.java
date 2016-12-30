@@ -85,4 +85,9 @@ public class EventosFragment extends BaseFragment implements Transacao{
         };
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelable(ListEventos.KEY, new ListEventos(mEventos));
+    }
 }

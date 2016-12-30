@@ -25,7 +25,7 @@ public class InscricaoConverter {
             js.key("tipo").value(tipo_pk);
 
             // array minicursos
-            js.key("minicursos");
+            js.key("certificados_minicursos");
             js.array();
             for (Minicurso m: minicursos) {
                 //js.value(m.getPk());
@@ -35,7 +35,7 @@ public class InscricaoConverter {
             js.endArray();
 
             // array atividades
-            js.key("atividades");
+            js.key("certificados_atividades");
             js.array();
             for (Atividade a: atividades) {
                 int pk = Integer.parseInt(a.getPk());
@@ -43,7 +43,7 @@ public class InscricaoConverter {
             }
             js.endArray();
 
-            js.key("palestras").value(palestras);
+            js.key("certificados_palestras").value(palestras);
             js.endObject();
             Log.i("Script", js.toString());
         }catch (JSONException e) {
