@@ -11,35 +11,35 @@ import android.widget.TextView;
 import java.util.List;
 
 import br.com.eventoseartigos.sefd.R;
-import br.com.eventoseartigos.sefd.model.Evento;
+import br.com.eventoseartigos.sefd.model.Inscricao;
 
 /**
- * Created by gilmar on 27/12/16.
+ * Created by gilmar on 30/12/16.
  */
 
-public class EventosAdapter extends RecyclerView.Adapter<EventosAdapter.ViewHolder> {
-    private List<Evento> mEventos;
+public class InscricaoAdapter extends RecyclerView.Adapter<InscricaoAdapter.ViewHolder> {
+    private List<Inscricao> mInscricaos;
     private OnClickListener onClickListener;
     private LayoutInflater mLayoutInflater;
     private Activity mContext;
 
-    public EventosAdapter(List<Evento> mEventos, Activity context, OnClickListener onClickListener) {
-        this.mEventos = mEventos;
+    public InscricaoAdapter(List<Inscricao> mInscricaos, Activity mContext, OnClickListener onClickListener) {
+        this.mInscricaos = mInscricaos;
         this.onClickListener = onClickListener;
-        this.mContext = context;
+        this.mContext = mContext;
         this.mLayoutInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = mLayoutInflater.from(parent.getContext()).inflate(R.layout.adapter_eventos, parent, false);
+        View v = mLayoutInflater.from(parent.getContext()).inflate(R.layout.adapter_inscricoes, parent , false);
         ViewHolder vh = new ViewHolder(v);
         return vh;
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
-        holder.tv_nome.setText(mEventos.get(position).getNome());
+        holder.tv_nome.setText(mInscricaos.get(position).getEdicao());
 
         if (onClickListener != null) {
             holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -49,15 +49,16 @@ public class EventosAdapter extends RecyclerView.Adapter<EventosAdapter.ViewHold
                 }
             });
         }
+
     }
 
     @Override
     public int getItemCount() {
-        return mEventos != null ? mEventos.size() : 0;
+        return mInscricaos != null ? mInscricaos.size() : 0;
     }
 
     public interface OnClickListener {
-        public void onClick(View view, int idx);
+        public void onClick(View v, int idx);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

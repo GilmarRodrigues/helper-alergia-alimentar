@@ -53,4 +53,12 @@
     <string name="text_Total">Total</string>
     <string name="text_valor">Valor</string>
     <string name="erro_verfiqueque_opcoes">Verifique se as opções desejadas estão selecionadas</string>
+    <string name="title_activity_inscricao_detalhes">InscricaoDetalhesActivity</string>
+    <string name="text_minicurso">Minicurso</string>
+    <string name="text_atividade">Atividade</string>
+    <string name="btn_enviar">Enviar</string>
+    <string name="btn_tira_foto_doc">Tira foto do documento</string>
+    <string name="text_documento_necessario">Documento Necessário</string>
+    <string name="text_documento_enviados">Documentos Enviados</string>
+    <string name="selecione_um_item">Selecione um item</string>
 </resources>

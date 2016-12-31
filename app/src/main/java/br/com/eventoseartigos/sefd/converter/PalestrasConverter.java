@@ -37,4 +37,28 @@ public class PalestrasConverter {
         }
         return null;
     }
+
+
+    public static List<Palestras> convertePalestrasParaString(JSONObject root) {
+        try {
+            List<Palestras> palestrasList = new ArrayList<>();
+            JSONArray array = root.getJSONArray("palestras");
+            for (int i=0; i<array.length(); i++) {
+                JSONObject rootPalestras = array.getJSONObject(i);
+                Palestras p = new Palestras();
+
+                p.setNome(rootPalestras.optString("nome"));
+                p.setHora(rootPalestras.optString("hora"));
+                p.setData(rootPalestras.optString("data"));
+                p.setProfissional(rootPalestras.getString("profissional"));
+                p.setEdicao(rootPalestras.optString("edicao"));
+
+                palestrasList.add(p);
+            }
+            return palestrasList;
+        }catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

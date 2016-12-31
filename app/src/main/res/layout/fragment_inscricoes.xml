@@ -4,10 +4,31 @@
     android:layout_height="match_parent"
     tools:context="br.com.eventoseartigos.sefd.fragment.InscricoesFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <!-- progress -->
+    <ProgressBar
+        android:id="@+id/progress"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_gravity="center"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:id="@+id/layout_progress"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Inscrições" />
+        android:orientation="vertical">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:cacheColorHint="@android:color/transparent"
+            android:clipToPadding="false" android:divider="@null"
+            android:dividerHeight="0dp" android:listSelector="@android:color/transparent"
+            android:scrollbarStyle="outsideOverlay" android:scrollbars="vertical" />
+
+    </LinearLayout>
+
 
 </FrameLayout>

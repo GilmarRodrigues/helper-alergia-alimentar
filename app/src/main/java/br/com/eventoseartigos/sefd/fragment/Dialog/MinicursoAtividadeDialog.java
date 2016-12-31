@@ -22,11 +22,14 @@ import br.com.eventoseartigos.sefd.model.Atividade;
 import br.com.eventoseartigos.sefd.model.Horario;
 import br.com.eventoseartigos.sefd.model.Minicurso;
 
+import static br.com.eventoseartigos.sefd.utils.FormatUtils.formtDate;
+import static br.com.eventoseartigos.sefd.utils.FormatUtils.formtHora;
+
 /**
  * Created by gilmar on 29/12/16.
  */
 
-public class MinicursoAtividadeDialog extends DialogFragment {
+public class MinicursoAtividadeDialog extends BaseFragmentDialog {
     private Callback callback;
     private TextView tv_minicurso_atividade;
     private TextView tv_vagas;
@@ -125,10 +128,10 @@ public class MinicursoAtividadeDialog extends DialogFragment {
             if (mAtividade != null) {
                 tv_minicurso_atividade.setText("Atividade: " + mAtividade.getAtividade());
                 tv_vagas.setText("Vagas: " + mAtividade.getVagas());
-                if (mAtividade.getDescricao().equals(null)) {
-                    tv_profissional_descricao.setText("Descrição: " + mAtividade.getDescricao());
-                } else {
+                if (mAtividade.getDescricao().trim().equals("null")) {
                     tv_profissional_descricao.setVisibility(View.GONE);
+                } else {
+                    tv_profissional_descricao.setText("Descrição: " + mAtividade.getDescricao());
                 }
 
                 for (Horario h : mAtividade.getHorarios()) {
@@ -136,17 +139,6 @@ public class MinicursoAtividadeDialog extends DialogFragment {
                 }
             }
         }
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        if (getDialog() == null) {
-            return;
-        }
-
-        Window window = getDialog().getWindow();
-        window.setBackgroundDrawableResource(android.R.color.white);
     }
 
     private View setView() {
@@ -173,7 +165,7 @@ public class MinicursoAtividadeDialog extends DialogFragment {
         layout_horarios.addView(setView());
     }
 
-    private String formtDate(String date) {
+   /* private String formtDate(String date) {
         try {
             SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd");
             Date data = fmt.parse(date);
@@ -197,7 +189,7 @@ public class MinicursoAtividadeDialog extends DialogFragment {
             e.printStackTrace();
         }
         return null;
-    }
+    }*/
 
     public static interface Callback {
         public void onClick(Object o, String manhaOuTarde);
