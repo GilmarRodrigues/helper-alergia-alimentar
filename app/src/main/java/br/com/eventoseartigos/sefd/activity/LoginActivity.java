@@ -62,11 +62,9 @@ public class LoginActivity extends BaseActivity implements LoaderCallbacks<Curso
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         String tokenPrefs = Prefs.getString(this, Login.TOKEN);
-        //if (!tokenPrefs.equals("")) {
+
         if (!TextUtils.isEmpty(tokenPrefs)) {
             Intent intent = new Intent(this, MainActivity.class);
-            //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             intent.putExtra(Login.TOKEN, tokenPrefs);
             startActivity(intent);
             finish();

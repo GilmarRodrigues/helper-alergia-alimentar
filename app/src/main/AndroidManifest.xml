@@ -66,9 +66,17 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="br.com.eventoseartigos.sefd.activity.MainActivity" />
         </activity>
-        <activity android:name=".activity.CertificadoActivity"
+        <activity
+            android:name=".activity.CertificadoActivity"
             android:label="@string/title_activity_certificado"
             android:parentActivityName=".activity.MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="br.com.eventoseartigos.sefd.activity.MainActivity" />
+        </activity>
+        <activity android:name=".activity.ConfiguracaoActivity"
+            android:label="@string/title_activity_configuracao"
+            android:parentActivityName=".activity.MainActivity">>
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="br.com.eventoseartigos.sefd.activity.MainActivity" />

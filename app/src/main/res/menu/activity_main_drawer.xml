@@ -16,20 +16,16 @@
             android:title="@string/menu_drawer_certificados" />
     </group>
 
-    <item android:title="Communicate">
+    <item android:title="Outros">
         <menu>
             <item
                 android:id="@+id/nav_peril"
                 android:icon="@drawable/ic_menu_peril"
                 android:title="@string/menu_drawer_perfil" />
             <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
-                android:title="Convide seus amigos" />
-            <item
-                android:id="@+id/nav_send"
-                android:icon="@drawable/ic_menu_send"
-                android:title="Send" />
+                android:id="@+id/nav_settings"
+                android:icon="@drawable/ic_settings"
+                android:title="@string/menu_drawer_configuracoes" />
         </menu>
     </item>
 

@@ -43,15 +43,6 @@ public class MainActivity extends BaseActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -84,11 +75,12 @@ public class MainActivity extends BaseActivity
         if (email != "") {
             campo_email.setText(email);
         }
-        campo_nome.setText(usuario.getFirstName()+" "+ usuario.getLastName());
+        if (usuario != null) {
+            campo_nome.setText(usuario.getFirstName() + " " + usuario.getLastName());
+        }
     }
 
     private void setFirstItemNavigationView(NavigationView navigationView) {
-        //replaceFragment(new EventosFragment());
         navigationView.setCheckedItem(R.id.nav_eventos);
         navigationView.getMenu().performIdentifierAction(R.id.nav_eventos, 0);
     }
@@ -104,29 +96,9 @@ public class MainActivity extends BaseActivity
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-        if (id == R.id.action_settings) {
-            Prefs.setString(this, Login.TOKEN, null);
-            Prefs.setString(this, Login.EMAIL, null);
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
         int id = item.getItemId();
 
         if (id == R.id.nav_eventos) {
@@ -139,10 +111,8 @@ public class MainActivity extends BaseActivity
             Intent intent = new Intent(this, PerfilActivity.class);
             intent.putExtra(Usuario.KEY, usuario);
             startActivity(intent);
-        }else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
+        }else if (id == R.id.nav_settings) {
+            startActivity(new Intent(this, ConfiguracaoActivity.class));
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
