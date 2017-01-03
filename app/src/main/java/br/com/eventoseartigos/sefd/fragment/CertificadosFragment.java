@@ -2,6 +2,7 @@ package br.com.eventoseartigos.sefd.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,24 +14,27 @@ import android.view.ViewGroup;
 import java.util.List;
 
 import br.com.eventoseartigos.sefd.R;
-import br.com.eventoseartigos.sefd.activity.InscricaoActivity;
-import br.com.eventoseartigos.sefd.adapter.EventosAdapter;
+import br.com.eventoseartigos.sefd.activity.CertificadoActivity;
+import br.com.eventoseartigos.sefd.adapter.CertificadoAdapter;
 import br.com.eventoseartigos.sefd.annotation.Transacao;
 import br.com.eventoseartigos.sefd.dao.Prefs;
-import br.com.eventoseartigos.sefd.model.Evento;
-import br.com.eventoseartigos.sefd.model.ListEventos;
-import br.com.eventoseartigos.sefd.service.EventosService;
+import br.com.eventoseartigos.sefd.model.Certificado;
+import br.com.eventoseartigos.sefd.model.ListCertificado;
+import br.com.eventoseartigos.sefd.service.CertificadoService;
 
-public class EventosFragment extends BaseFragment implements Transacao{
+
+public class CertificadosFragment extends BaseFragment implements Transacao{
     private String token;
-    private List<Evento> mEventos;
+    private List<Certificado> mCertificados;
     private RecyclerView mRecyclerView;
-    private EventosAdapter mAdapter;
+    private CertificadoAdapter mAdapter;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_eventos, container, false);
+
+        View view = inflater.inflate(R.layout.fragment_certificados, container, false);
 
         token = Prefs.getString(getContext(), "token");
 
@@ -47,10 +51,10 @@ public class EventosFragment extends BaseFragment implements Transacao{
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         if (savedInstanceState != null) {
-            ListEventos list = savedInstanceState.getParcelable(ListEventos.KEY);
-            this.mEventos = list.eventos;
+            ListCertificado list = savedInstanceState.getParcelable(ListCertificado.KEY);
+            mCertificados  = list.certificados;
         }
-        if (mEventos != null) {
+        if (mCertificados != null) {
             atualizarView();
         } else {
             startTrasacao(this);
@@ -59,7 +63,7 @@ public class EventosFragment extends BaseFragment implements Transacao{
 
     @Override
     public void executar() throws Exception {
-        mEventos = EventosService.getEventos(token);
+        mCertificados = CertificadoService.getCertificados(token, getContext());
     }
 
     @Override
@@ -71,16 +75,16 @@ public class EventosFragment extends BaseFragment implements Transacao{
         LinearLayoutManager llm = new LinearLayoutManager(getContext());
         mRecyclerView.setLayoutManager(llm);
 
-        mAdapter = new EventosAdapter(mEventos, getActivity(), onClickEvento());
+        mAdapter = new CertificadoAdapter(getContext(), mCertificados, onClickCertificado());
         mRecyclerView.setAdapter(mAdapter);
     }
 
-    private EventosAdapter.OnClickListener onClickEvento() {
-        return new EventosAdapter.OnClickListener() {
+    private CertificadoAdapter.OnClickListener onClickCertificado() {
+        return new CertificadoAdapter.OnClickListener() {
             @Override
-            public void onClick(View view, int idx) {
-                Intent intent = new Intent(getActivity(), InscricaoActivity.class);
-                intent.putExtra(Evento.KEY, mEventos.get(idx));
+            public void onClick(View v, int idx) {
+                Intent intent = new Intent(getActivity(), CertificadoActivity.class);
+                intent.putExtra(Certificado.KEY, mCertificados.get(idx));
                 startActivity(intent);
             }
         };
@@ -89,6 +93,6 @@ public class EventosFragment extends BaseFragment implements Transacao{
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putParcelable(ListEventos.KEY, new ListEventos(mEventos));
+        outState.putParcelable(ListCertificado.KEY, new ListCertificado(mCertificados));
     }
 }

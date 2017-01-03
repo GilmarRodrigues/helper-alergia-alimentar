@@ -99,7 +99,11 @@ public class InscricaoActivity extends BaseActivity implements Transacao {
             @Override
             public void onClick(View v) {
                 flag = false;
-                startTrasacao(InscricaoActivity.this);
+                if (minicursosEnviar().size() > 0 || atividadesEnviar().size() > 0 || palestrasCheckBox == true) {
+                    startTrasacao(InscricaoActivity.this);
+                } else {
+                    Toast.makeText(InscricaoActivity.this, getString(R.string.erro_verfiqueque_opcoes), Toast.LENGTH_SHORT).show();
+                }
             }
         };
     }
@@ -114,9 +118,7 @@ public class InscricaoActivity extends BaseActivity implements Transacao {
         } else {
             List<Minicurso> minicursoList = minicursosEnviar();
             List<Atividade> atividadeList = atividadesEnviar();
-            if (minicursoList.size() > 0 || atividadeList.size() > 0 || palestrasCheckBox == true) {
-                response = InscricaoService.setInscricao(tipoInscricao, minicursoList, atividadeList, palestrasCheckBox, token);
-            }
+            response = InscricaoService.setInscricao(tipoInscricao, minicursoList, atividadeList, palestrasCheckBox, token);
         }
     }
 
@@ -127,8 +129,8 @@ public class InscricaoActivity extends BaseActivity implements Transacao {
             setPalestras(mPalestras);
             setGrupos(mGruposList);
         } else {
-            //Toast.makeText(InscricaoActivity.this, getString(R.string.erro_verfiqueque_opcoes), Toast.LENGTH_SHORT).show();
-            Toast.makeText(InscricaoActivity.this, response, Toast.LENGTH_SHORT).show();
+            Toast.makeText(InscricaoActivity.this, getString(R.string.msg_cadastrado_sucesso), Toast.LENGTH_SHORT).show();
+            finish();
         }
     }
 

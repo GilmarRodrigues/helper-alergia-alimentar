@@ -1,6 +1,8 @@
 package br.com.eventoseartigos.sefd.activity;
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -19,6 +21,7 @@ import android.widget.TextView;
 import br.com.eventoseartigos.sefd.R;
 import br.com.eventoseartigos.sefd.annotation.Transacao;
 import br.com.eventoseartigos.sefd.dao.Prefs;
+import br.com.eventoseartigos.sefd.fragment.CertificadosFragment;
 import br.com.eventoseartigos.sefd.fragment.EventosFragment;
 import br.com.eventoseartigos.sefd.fragment.InscricoesFragment;
 import br.com.eventoseartigos.sefd.model.ListUsuario;
@@ -38,6 +41,7 @@ public class MainActivity extends BaseActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -72,6 +76,7 @@ public class MainActivity extends BaseActivity
         setFirstItemNavigationView(navigationView);
 
         startTrasacaoSemProgress(this);
+
     }
 
     private void setUser() {
@@ -101,7 +106,6 @@ public class MainActivity extends BaseActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
@@ -130,7 +134,7 @@ public class MainActivity extends BaseActivity
         } else if (id == R.id.nav_inscricoes) {
             replaceFragment(new InscricoesFragment());
         } else if (id == R.id.nav_certificados) {
-
+            replaceFragment(new CertificadosFragment());
         } else if(id == R.id.nav_peril){
             Intent intent = new Intent(this, PerfilActivity.class);
             intent.putExtra(Usuario.KEY, usuario);
@@ -158,5 +162,11 @@ public class MainActivity extends BaseActivity
     @Override
     public void atualizarView() {
         setUser();
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+
     }
 }

@@ -61,4 +61,13 @@
     <string name="text_documento_necessario">Documento Necessário</string>
     <string name="text_documento_enviados">Documentos Enviados</string>
     <string name="selecione_um_item">Selecione um item</string>
+    <string name="msg_cadastrado_sucesso">Cadastrado com sucesso.</string>
+    <string name="text_tipo_certificado">minicurso/atividade/palestra</string>
+    <string name="text_turma_palestra">Turma/Palestra</string>
+    <string name="text_evento">Evento</string>
+    <string name="title_activity_certificado">Certificados</string>
+    <string name="text_minicurso_atividade_palestra">Minicurso/Atividade/Palestra</string>
+    <string name="text_disponivel">Disponível</string>
+    <string name="prompt_nome_certificado">Seu nome completo</string>
+    <string name="btn_certificado">Certificado</string>
 </resources>
