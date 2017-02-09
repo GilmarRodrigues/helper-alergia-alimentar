@@ -22,6 +22,7 @@ public class CertificadoService {
     public static final String URL_MINICURSO = "http://api-sefd.ifpicos.com.br/participante/certificados/minicurso/";
     public static final String URL_ATIVIDADE = "http://api-sefd.ifpicos.com.br/participante/certificados/atividade/";
     public static final String URL_PALESTRAS = "http://api-sefd.ifpicos.com.br/participante/certificados/palestra/";
+    public static final String URL_EVENTO = "http://api-sefd.ifpicos.com.br/participante/certificados/evento/";
     public static final String URL_CODIGO_CERTIFICADO = "http://api-sefd.ifpicos.com.br/participante/certificados/{pk}/";
 
     public static List<Certificado> getCertificados(String token, Context context) {
@@ -37,6 +38,9 @@ public class CertificadoService {
             String palestrasJson = HttpUtils.doGet(URL_PALESTRAS, token);
             certificados = CertificadoConverter.converteCertificadoParaString(palestrasJson, certificados, context.getString(R.string.text_palestras));
 
+            String eventoJson = HttpUtils.doGet(URL_EVENTO, token);
+            certificados = CertificadoConverter.converteCertificadoParaString(eventoJson, certificados, context.getString(R.string.text_palestras));
+
             return certificados;
         } catch (IOException e) {
             e.printStackTrace();
@@ -44,11 +48,11 @@ public class CertificadoService {
         return null;
     }
 
-    public static String codigoBase64(String token, String pk) {
+    public static String geraCertificado(String token, String tokenCertificado) {
         try {
-            String url = URL_CODIGO_CERTIFICADO.replace("{pk}", pk);
-            String codigo = HttpUtils.doGet(url, token);
-            return codigo;
+            String url = URL_CODIGO_CERTIFICADO.replace("{pk}", tokenCertificado);
+            String json = HttpUtils.doGet(url, token);
+            return json;
         } catch (IOException e) {
             e.printStackTrace();
         }

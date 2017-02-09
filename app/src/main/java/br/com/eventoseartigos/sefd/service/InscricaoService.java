@@ -24,6 +24,7 @@ public class InscricaoService {
                                       boolean palestras, String token) {
         try {
             String json = InscricaoConverter.converteInscricaoParaJson(tipo, minicursos, atividades, palestras);
+            Log.i("Script", json);
             String str = HttpUtils.doPost(URL, json, token);
             return str;
         } catch (IOException e) {
@@ -32,11 +33,11 @@ public class InscricaoService {
         return null;
     }
 
-
     public static List<Inscricao> getInscricao(String token) {
         try {
             String json = HttpUtils.doGet(URL, token);
             List<Inscricao> inscricoes = InscricaoConverter.converteInscricaoParaString(json);
+            Log.i("Script", json);
             return inscricoes;
         } catch (IOException e) {
             e.printStackTrace();

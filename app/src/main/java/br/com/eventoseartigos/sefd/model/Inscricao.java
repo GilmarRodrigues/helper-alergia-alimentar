@@ -9,7 +9,7 @@ import java.util.List;
  * Created by gilmar on 30/12/16.
  */
 
-public class Inscricao implements Parcelable{
+public class Inscricao implements Parcelable {
     public static final String KEY = "inscricao";
     private String pk;
     private String tipo;
@@ -18,14 +18,15 @@ public class Inscricao implements Parcelable{
     private List<Minicurso> minicursos;
     private List<Atividade> atividades;
     private List<Palestras> palestras;
+    private List<AtividadeGeral> atividades_gerais;
+    private String edicao;
     private List<DocumentosEnviados> documentos_enviados;
     private List<DocumentosNecessarios> documentos_necessarios;
-    private String edicao;
 
     public Inscricao() {
     }
 
-    public Inscricao(String pk, String tipo, String preco, String status, List<Minicurso> minicursos, List<Atividade> atividades, List<Palestras> palestras, List<DocumentosEnviados> documentos_enviados, List<DocumentosNecessarios> documentos_necessarios, String edicao) {
+    public Inscricao(String pk, String tipo, String preco, String status, List<Minicurso> minicursos, List<Atividade> atividades, List<Palestras> palestras, List<AtividadeGeral> atividades_gerais, String edicao, List<DocumentosEnviados> documentos_enviados, List<DocumentosNecessarios> documentos_necessarios) {
         this.pk = pk;
         this.tipo = tipo;
         this.preco = preco;
@@ -33,10 +34,12 @@ public class Inscricao implements Parcelable{
         this.minicursos = minicursos;
         this.atividades = atividades;
         this.palestras = palestras;
+        this.atividades_gerais = atividades_gerais;
+        this.edicao = edicao;
         this.documentos_enviados = documentos_enviados;
         this.documentos_necessarios = documentos_necessarios;
-        this.edicao = edicao;
     }
+
 
     protected Inscricao(Parcel in) {
         pk = in.readString();
@@ -46,9 +49,10 @@ public class Inscricao implements Parcelable{
         minicursos = in.createTypedArrayList(Minicurso.CREATOR);
         atividades = in.createTypedArrayList(Atividade.CREATOR);
         palestras = in.createTypedArrayList(Palestras.CREATOR);
+        atividades_gerais = in.createTypedArrayList(AtividadeGeral.CREATOR);
+        edicao = in.readString();
         documentos_enviados = in.createTypedArrayList(DocumentosEnviados.CREATOR);
         documentos_necessarios = in.createTypedArrayList(DocumentosNecessarios.CREATOR);
-        edicao = in.readString();
     }
 
     public static final Creator<Inscricao> CREATOR = new Creator<Inscricao>() {
@@ -143,6 +147,14 @@ public class Inscricao implements Parcelable{
         this.edicao = edicao;
     }
 
+    public List<AtividadeGeral> getAtividades_gerais() {
+        return atividades_gerais;
+    }
+
+    public void setAtividades_gerais(List<AtividadeGeral> atividades_gerais) {
+        this.atividades_gerais = atividades_gerais;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -157,9 +169,10 @@ public class Inscricao implements Parcelable{
         dest.writeTypedList(minicursos);
         dest.writeTypedList(atividades);
         dest.writeTypedList(palestras);
+        dest.writeTypedList(atividades_gerais);
+        dest.writeString(edicao);
         dest.writeTypedList(documentos_enviados);
         dest.writeTypedList(documentos_necessarios);
-        dest.writeString(edicao);
     }
 }
 

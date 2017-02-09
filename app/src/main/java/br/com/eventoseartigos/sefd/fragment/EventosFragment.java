@@ -60,6 +60,8 @@ public class EventosFragment extends BaseFragment implements Transacao{
     @Override
     public void executar() throws Exception {
         mEventos = EventosService.getEventos(token);
+        //teste edukids
+        //EventosService.eduKids();
     }
 
     @Override

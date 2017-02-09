@@ -1,11 +1,15 @@
 package br.com.eventoseartigos.sefd.service;
 
+import android.util.Log;
+
 import java.io.IOException;
 import java.util.List;
 
 import br.com.eventoseartigos.sefd.converter.PalestrasConverter;
 import br.com.eventoseartigos.sefd.model.Palestras;
 import br.com.eventoseartigos.sefd.utils.HttpUtils;
+
+import static br.com.eventoseartigos.sefd.service.CertificadoService.URL_PALESTRAS;
 
 /**
  * Created by gilmar on 28/12/16.

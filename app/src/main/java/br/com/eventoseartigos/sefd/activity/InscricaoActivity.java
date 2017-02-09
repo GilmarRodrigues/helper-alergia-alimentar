@@ -1,6 +1,8 @@
 package br.com.eventoseartigos.sefd.activity;
 
 import android.os.Bundle;
+import android.renderscript.Script;
+import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,19 +30,27 @@ import br.com.eventoseartigos.sefd.converter.InscricaoConverter;
 import br.com.eventoseartigos.sefd.dao.Prefs;
 import br.com.eventoseartigos.sefd.fragment.Dialog.MinicursoAtividadeDialog;
 import br.com.eventoseartigos.sefd.model.Atividade;
+import br.com.eventoseartigos.sefd.model.AtividadeGeral;
 import br.com.eventoseartigos.sefd.model.Evento;
 import br.com.eventoseartigos.sefd.model.Grupos;
 import br.com.eventoseartigos.sefd.model.Minicurso;
 import br.com.eventoseartigos.sefd.model.Palestras;
 import br.com.eventoseartigos.sefd.model.TipoInscricao;
+import br.com.eventoseartigos.sefd.service.AtividadesGeraisService;
 import br.com.eventoseartigos.sefd.service.GruposService;
 import br.com.eventoseartigos.sefd.service.InscricaoService;
 import br.com.eventoseartigos.sefd.service.PalestrasService;
 import br.com.eventoseartigos.sefd.service.TipoInscricaoService;
 
+import static br.com.eventoseartigos.sefd.R.id.card_view_manha;
+import static br.com.eventoseartigos.sefd.R.id.card_view_palestras;
+import static br.com.eventoseartigos.sefd.R.id.card_view_tarde;
+import static br.com.eventoseartigos.sefd.R.id.layout_atividades_gerais;
+
 public class InscricaoActivity extends BaseActivity implements Transacao {
     private static final String TAG = "InscricaoActivity";
     private Evento mEvento;
+    private List<AtividadeGeral> mAtividadesGerais;
     private List<TipoInscricao> mTipoInscricaos;
     private List<Palestras> mPalestras;
     private List<Grupos> mGruposList;
@@ -50,6 +60,7 @@ public class InscricaoActivity extends BaseActivity implements Transacao {
     private LinearLayout layout_palestras;
     private LinearLayout layout_manha;
     private LinearLayout layout_tarde;
+    private LinearLayout layout_atividades_gerais;
     private CheckBox checkBox;
     private Double valorTotal;
     private Double precoMinicurso;
@@ -76,6 +87,7 @@ public class InscricaoActivity extends BaseActivity implements Transacao {
         tv_valor_total = (TextView) findViewById(R.id.tv_valor_total);
         layout_manha = (LinearLayout) findViewById(R.id.layout_manha);
         layout_tarde = (LinearLayout) findViewById(R.id.layout_tarde);
+        layout_atividades_gerais = (LinearLayout) findViewById(R.id.layout_atividades_gerais);
         findViewById(R.id.btn_confirmar).setOnClickListener(onClickConfirmar());
 
         mEvento = getIntent().getParcelableExtra(Evento.KEY);
@@ -99,11 +111,12 @@ public class InscricaoActivity extends BaseActivity implements Transacao {
             @Override
             public void onClick(View v) {
                 flag = false;
-                if (minicursosEnviar().size() > 0 || atividadesEnviar().size() > 0 || palestrasCheckBox == true) {
+                startTrasacao(InscricaoActivity.this);
+                /*if (minicursosEnviar().size() > 0 || atividadesEnviar().size() > 0 || palestrasCheckBox == true) {
                     startTrasacao(InscricaoActivity.this);
                 } else {
                     Toast.makeText(InscricaoActivity.this, getString(R.string.erro_verfiqueque_opcoes), Toast.LENGTH_SHORT).show();
-                }
+                }*/
             }
         };
     }
@@ -114,11 +127,13 @@ public class InscricaoActivity extends BaseActivity implements Transacao {
             mTipoInscricaos = TipoInscricaoService.getIncricao(token, mEvento.getPk());
             mPalestras = PalestrasService.getPalestras(token, mEvento.getPk());
             mGruposList = GruposService.getGrupos(token, mEvento.getPk());
+            mAtividadesGerais = AtividadesGeraisService.getAtividadesGerais(token, mEvento.getPk());
 
         } else {
             List<Minicurso> minicursoList = minicursosEnviar();
             List<Atividade> atividadeList = atividadesEnviar();
             response = InscricaoService.setInscricao(tipoInscricao, minicursoList, atividadeList, palestrasCheckBox, token);
+            //InscricaoService.setInscricao(token);
         }
     }
 
@@ -128,6 +143,7 @@ public class InscricaoActivity extends BaseActivity implements Transacao {
             setTipoInscricao(mTipoInscricaos);
             setPalestras(mPalestras);
             setGrupos(mGruposList);
+            setAtividadesGerais(mAtividadesGerais);
         } else {
             Toast.makeText(InscricaoActivity.this, getString(R.string.msg_cadastrado_sucesso), Toast.LENGTH_SHORT).show();
             finish();
@@ -135,19 +151,31 @@ public class InscricaoActivity extends BaseActivity implements Transacao {
     }
 
     private void setGrupos(List<Grupos> gruposList) {
-        if (gruposList != null || gruposList.size() > 0) {
+        CardView card_view_tarde = (CardView) findViewById(R.id.card_view_tarde);
+        CardView card_view_manha = (CardView) findViewById(R.id.card_view_manha);
+        if (gruposList != null && gruposList.size() > 0) {
             for (int i = 0; i < gruposList.size(); i++) {
                 if (gruposList.get(i).getNome().equals("Manhã")) {
                     setMinicursoAtividade(gruposList, i, layout_manha, "Manhã");
-                } else if (gruposList.get(i).getNome().equals("Tarde")) {
+                } else {
+                    card_view_manha.setVisibility(View.GONE);
+                }
+
+                if (gruposList.get(i).getNome().equals("Tarde")) {
                     setMinicursoAtividade(gruposList, i, layout_tarde, "Tarde");
+                } else {
+                    card_view_tarde.setVisibility(View.GONE);
                 }
             }
+        }
+        else {
+            card_view_manha.setVisibility(View.GONE);
+            card_view_tarde.setVisibility(View.GONE);
         }
     }
 
     private void setPalestras(List<Palestras> palestrasList) {
-        if (palestrasList != null || palestrasList.size() > 0) {
+        if (palestrasList != null && palestrasList.size() > 0) {
             for (Palestras p : mPalestras) {
 
                 layout_palestras.addView(setTextView(p.getNome(), "Palestras", p));
@@ -159,7 +187,27 @@ public class InscricaoActivity extends BaseActivity implements Transacao {
             checkBox.setText("Desejo participar das palestras");
             checkBox.setOnClickListener(OnClickPalestras());
             layout_palestras.addView(checkBox);
+        }
+        else {
+            CardView card_view_palestras = (CardView) findViewById(R.id.card_view_palestras);
+            card_view_palestras.setVisibility(View.GONE);
+        }
+    }
 
+    public void setAtividadesGerais(List<AtividadeGeral> atividadesGerais) {
+        if (atividadesGerais != null && atividadesGerais.size() > 0) {
+            for (AtividadeGeral a : atividadesGerais) {
+
+                layout_atividades_gerais.addView(setTextView(a.getDescricao(), "AtividadeGeral", a));
+                layout_atividades_gerais.addView(setTextView(formtDate(a.getData()), "AtividadeGeral", a));
+                layout_atividades_gerais.addView(setTextView(formtHora(a.getInicio()) + " às " + formtHora(a.getTermino()), "AtividadeGeral", a));
+
+                layout_atividades_gerais.addView(setView());
+            }
+        }
+        else {
+            CardView card_view_atividades_gerais = (CardView) findViewById(R.id.card_view_atividades_gerais);
+            card_view_atividades_gerais.setVisibility(View.GONE);
         }
     }
 
@@ -414,5 +462,4 @@ public class InscricaoActivity extends BaseActivity implements Transacao {
         }
         return atividades;
     }
-
 }

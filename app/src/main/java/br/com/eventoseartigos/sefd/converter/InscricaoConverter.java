@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.eventoseartigos.sefd.model.Atividade;
+import br.com.eventoseartigos.sefd.model.AtividadeGeral;
 import br.com.eventoseartigos.sefd.model.DocumentosEnviados;
 import br.com.eventoseartigos.sefd.model.DocumentosNecessarios;
 import br.com.eventoseartigos.sefd.model.Horario;
@@ -52,6 +53,7 @@ public class InscricaoConverter {
             js.endArray();
 
             js.key("certificados_palestras").value(palestras);
+            js.key("certificado_evento").value(true);
             js.endObject();
         }catch (JSONException e) {
             e.printStackTrace();
@@ -83,6 +85,10 @@ public class InscricaoConverter {
                 //Palestras
                 List<Palestras> palestrasList = PalestrasConverter.convertePalestrasParaString(root);
                 in.setPalestras(palestrasList);
+
+                // Atividades Gerais
+                List<AtividadeGeral> atividadeGerals = AtividadesGeraisConverter.converteAtividadesGeraisParaString(root);
+                in.setAtividades_gerais(atividadeGerals);
 
                 //Documentos Enviados
                 List<DocumentosEnviados> enviadosList = DocumentosEnviadosConverter.converteDocEnviadorsParaString(root);

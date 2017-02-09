@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">SEFD</string>
+    <string name="app_name">Rease</string>
 
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
@@ -22,7 +22,7 @@
     <string name="error_invalid_cpf">Este CPF é inválido</string>
     <string name="error_email_ja_registardo">Esse e-mail já está registrado</string>
     <string name="form_tv_entrar">Você possui uma conta? Entre</string>
-    <string name="title_activity_main">SEFD</string>
+    <string name="title_activity_main">Rease</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -79,12 +79,13 @@
     <string name="setting_termos_uso">Termos de uso</string>
     <string name="setting_politica_privacidade">Politica de privacidade</string>
     <string name="setting_redes_sociais">Redes sociais</string>
-    <string name="setting_facebook">Curta SEFD no Facebook</string>
-    <string name="setting_twitter">Siga @SEFD no Twitter</string>
+    <string name="setting_facebook">Curta Rease no Facebook</string>
+    <string name="setting_twitter">Siga @Rease no Twitter</string>
     <string name="setting_ajude_comunidade">Ajude a comunidade</string>
     <string name="setting_convide_amigos">Convide amigos</string>
-    <string name="setting_avaliar">Avaliar o SEFD</string>
+    <string name="setting_avaliar">Avaliar o Rease</string>
     <string name="settin_sair">Sair</string>
     <string name="msg_compartilhar">Compartilhar</string>
     <string name="menu_drawer_configuracoes">Configurações</string>
+    <string name="text_atividades_gerais">Atividades Gerais</string>
 </resources>

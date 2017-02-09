@@ -23,4 +23,15 @@ public class EventosService {
         }
         return null;
     }
+
+    /* teste edukids
+    public static String eduKids() {
+        try {
+            String json = HttpUtils.doGet("http://api.edukids.online/responsavel/turmas/", "fbe19443b9c811068e1313680b98a12374ddae23");
+            return json;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }*/
 }

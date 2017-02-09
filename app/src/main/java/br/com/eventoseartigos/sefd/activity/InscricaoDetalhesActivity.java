@@ -30,6 +30,7 @@ import br.com.eventoseartigos.sefd.annotation.Transacao;
 import br.com.eventoseartigos.sefd.dao.Prefs;
 import br.com.eventoseartigos.sefd.fragment.Dialog.HorarioDialog;
 import br.com.eventoseartigos.sefd.model.Atividade;
+import br.com.eventoseartigos.sefd.model.AtividadeGeral;
 import br.com.eventoseartigos.sefd.model.DocumentosEnviados;
 import br.com.eventoseartigos.sefd.model.DocumentosNecessarios;
 import br.com.eventoseartigos.sefd.model.Horario;
@@ -43,7 +44,10 @@ import id.zelory.compressor.Compressor;
 
 import static android.R.attr.data;
 import static br.com.eventoseartigos.sefd.R.id.card_view_enviados;
+import static br.com.eventoseartigos.sefd.R.id.layout_atividades_gerais;
 import static br.com.eventoseartigos.sefd.R.id.layout_documentos_enviados;
+import static br.com.eventoseartigos.sefd.utils.FormatUtils.formtDate;
+import static br.com.eventoseartigos.sefd.utils.FormatUtils.formtHora;
 
 public class InscricaoDetalhesActivity extends BaseActivity implements Transacao {
     private Inscricao mInscricao;
@@ -56,6 +60,7 @@ public class InscricaoDetalhesActivity extends BaseActivity implements Transacao
     private CardView card_view_necessario;
     private CardView card_view_enviados;
     private LinearLayout layout_documentos_enviados;
+    private LinearLayout layout_atividades_gerais;
     private TextView text_foto;
     private List<DocumentosEnviados> mEnviadosList;
 
@@ -74,6 +79,7 @@ public class InscricaoDetalhesActivity extends BaseActivity implements Transacao
         card_view_necessario = (CardView) findViewById(R.id.card_view_necessario);
         card_view_enviados = (CardView) findViewById(R.id.card_view_enviados);
         layout_documentos_enviados = (LinearLayout) findViewById(R.id.layout_documentos_enviados);
+        layout_atividades_gerais = (LinearLayout) findViewById(R.id.layout_atividades_gerais);
         text_foto = (TextView) findViewById(R.id.text_foto);
 
         token = Prefs.getString(this, "token");
@@ -161,6 +167,7 @@ public class InscricaoDetalhesActivity extends BaseActivity implements Transacao
         setMinicursos();
         setAtividades();
         setPalestras();
+        setAtividadesGerais();
         setDocumentoNecessario();
         setDocumentosEnviados();
     }
@@ -222,7 +229,7 @@ public class InscricaoDetalhesActivity extends BaseActivity implements Transacao
 
                 layout_palestras.addView(setTextView(palestrasList.get(i).getNome()));
                 layout_palestras.addView(setTextView(palestrasList.get(i).getProfissional()));
-                layout_palestras.addView(setTextView(FormatUtils.formtDate(palestrasList.get(i).getData()) + " às " + FormatUtils.formtHora(palestrasList.get(i).getHora())));
+                layout_palestras.addView(setTextView(formtDate(palestrasList.get(i).getData()) + " às " + formtHora(palestrasList.get(i).getHora())));
                 if (i + 1 != palestrasList.size()) {
                     layout_palestras.addView(setView());
                 }
@@ -230,6 +237,24 @@ public class InscricaoDetalhesActivity extends BaseActivity implements Transacao
             card_view_palestras.setVisibility(View.VISIBLE);
         }else {
             card_view_palestras.setVisibility(View.GONE);
+        }
+    }
+
+    public void setAtividadesGerais() {
+        List<AtividadeGeral> atividadesGerais = mInscricao.getAtividades_gerais();
+        if (atividadesGerais != null && atividadesGerais.size() > 0) {
+            for (AtividadeGeral a : atividadesGerais) {
+
+                layout_atividades_gerais.addView(setTextView(a.getDescricao()));
+                layout_atividades_gerais.addView(setTextView(formtDate(a.getData())));
+                layout_atividades_gerais.addView(setTextView(formtHora(a.getInicio()) + " às " + formtHora(a.getTermino())));
+
+                layout_atividades_gerais.addView(setView());
+            }
+        }
+        else {
+            CardView card_view_atividades_gerais = (CardView) findViewById(R.id.card_view_atividades_gerais);
+            card_view_atividades_gerais.setVisibility(View.GONE);
         }
     }
 

@@ -15,12 +15,14 @@ import br.com.eventoseartigos.sefd.fragment.Dialog.DefinirNomeCertificadoDialog;
 import br.com.eventoseartigos.sefd.model.Certificado;
 import br.com.eventoseartigos.sefd.service.CertificadoService;
 
+import static br.com.eventoseartigos.sefd.R.id.tv_disponivel;
+
 public class CertificadoActivity extends BaseActivity  implements Transacao{
     private Certificado mCertificado;
     private TextView tv_nome;
     private Button btn_certificado;
     private String token;
-    String codigo;
+    String urlCertificado;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,8 +60,8 @@ public class CertificadoActivity extends BaseActivity  implements Transacao{
         tv_turma_palestra.setText(certificado.getTurma()+certificado.getPalestra());
 
         String nome_certificado = certificado.getNome_certificado();
-        if (!nome_certificado.equals("null")) {
-            tv_nome.setText(nome_certificado);
+        if (!nome_certificado.equals("null") || !nome_certificado.equals("")) {
+             tv_nome.setText(nome_certificado);
         } else {
 
             tv_nome.setOnClickListener(onClickDefinirNomeCertificado());
@@ -68,12 +70,12 @@ public class CertificadoActivity extends BaseActivity  implements Transacao{
         }
 
         String disponivel = certificado.getDisponivel();
-        if (disponivel.equals(true)) {
+        if (disponivel.equals("true")) {
             tv_disponivel.setText("Status: Disponível");
-            //btn_certificado.setVisibility(View.VISIBLE);
+            btn_certificado.setVisibility(View.VISIBLE);
         } else {
             tv_disponivel.setText("Status: Indisponível");
-            //btn_certificado.setVisibility(View.GONE);
+            btn_certificado.setVisibility(View.GONE);
         }
     }
 
@@ -96,7 +98,7 @@ public class CertificadoActivity extends BaseActivity  implements Transacao{
 
     @Override
     public void executar() throws Exception {
-       codigo = CertificadoService.codigoBase64(token, mCertificado.getPk());
+        urlCertificado = CertificadoService.geraCertificado(token, mCertificado.getToken());
 
     }
 
@@ -105,10 +107,10 @@ public class CertificadoActivity extends BaseActivity  implements Transacao{
         //String substring = codigo.substring(0, codigo.length() - 1).substring(0);
         //substring = substring.substring(1);
         //Log.i("Script", substring);
-        String url = "data:application/pdf;base64,"+codigo.substring(0, codigo.length() - 1).substring(0);
+        //String url = "data:application/pdf;base64,"+codigo.substring(0, codigo.length() - 1).substring(0);
         //String replace = url.replace("{codigo}", codigo);
         Intent i = new Intent(Intent.ACTION_VIEW);
-        i.setData(Uri.parse(url));
+        i.setData(Uri.parse(urlCertificado));
         startActivity(i);
     }
 }

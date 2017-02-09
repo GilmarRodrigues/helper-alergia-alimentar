@@ -1,5 +1,7 @@
 package br.com.eventoseartigos.sefd.service;
 
+import android.util.Log;
+
 import java.io.IOException;
 import java.util.List;
 
