@@ -40,6 +40,7 @@ public class CertificadoAdapter extends RecyclerView.Adapter<CertificadoAdapter.
     public void onBindViewHolder(ViewHolder holder, final int position) {
         holder.tv_tipo.setText(mCertificados.get(position).getTipo());
         holder.tv_turma_palestra.setText(mCertificados.get(position).getTurma() + mCertificados.get(position).getPalestra());
+        //holder.tv_evento.setText(mContext.getString(R.string.text_evento)+ ": " +mCertificados.get(position).getEvento());
         holder.tv_evento.setText(mContext.getString(R.string.text_evento)+ ": " +mCertificados.get(position).getEvento());
 
         if (onClickListener != null) {

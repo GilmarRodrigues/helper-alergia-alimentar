@@ -34,13 +34,15 @@
             android:layout_height="wrap_content"
             android:text="@string/text_turma_palestra"
             android:textSize="22sp"
-            android:paddingBottom="3dp"/>
+            android:paddingBottom="3dp"
+            android:visibility="gone"/>
 
         <TextView
             android:id="@+id/tv_evento"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/text_evento" />
+            android:text="@string/text_evento"
+            android:textSize="22sp"/>
     </LinearLayout>
 
 </android.support.v7.widget.CardView>

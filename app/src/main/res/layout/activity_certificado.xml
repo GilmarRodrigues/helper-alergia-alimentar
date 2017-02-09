@@ -76,7 +76,8 @@
                         android:layout_height="wrap_content"
                         android:text="@string/text_turma_palestra"
                         android:paddingLeft="10dp"
-                        android:paddingTop="5dp" />
+                        android:paddingTop="5dp"
+                        android:visibility="gone"/>
 
                     <TextView
                         android:id="@+id/tv_nome"
