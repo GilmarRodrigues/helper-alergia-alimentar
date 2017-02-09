@@ -153,16 +153,20 @@ public class InscricaoActivity extends BaseActivity implements Transacao {
     private void setGrupos(List<Grupos> gruposList) {
         CardView card_view_tarde = (CardView) findViewById(R.id.card_view_tarde);
         CardView card_view_manha = (CardView) findViewById(R.id.card_view_manha);
+
         if (gruposList != null && gruposList.size() > 0) {
+            Log.i("Script", "Minicursos: " + gruposList.size());
             for (int i = 0; i < gruposList.size(); i++) {
                 if (gruposList.get(i).getNome().equals("Manhã")) {
                     setMinicursoAtividade(gruposList, i, layout_manha, "Manhã");
+                    card_view_manha.setVisibility(View.VISIBLE);
                 } else {
                     card_view_manha.setVisibility(View.GONE);
                 }
 
                 if (gruposList.get(i).getNome().equals("Tarde")) {
                     setMinicursoAtividade(gruposList, i, layout_tarde, "Tarde");
+                    card_view_tarde.setVisibility(View.VISIBLE);
                 } else {
                     card_view_tarde.setVisibility(View.GONE);
                 }
