@@ -116,8 +116,9 @@ public class CertificadoActivity extends BaseActivity implements Transacao {
         //Log.i("Script", substring);
         //String url = "data:application/pdf;base64,"+codigo.substring(0, codigo.length() - 1).substring(0);
         //String replace = url.replace("{codigo}", codigo);
+        String certificado = urlCertificado.substring(0, urlCertificado.length() -1).substring(1);
         Intent i = new Intent(Intent.ACTION_VIEW);
-            i.setData(Uri.parse(urlCertificado));
+        i.setData(Uri.parse(certificado));
         //i.setDataAndType(Uri.parse(urlCertificado), "text/html");
         startActivity(i);
     }

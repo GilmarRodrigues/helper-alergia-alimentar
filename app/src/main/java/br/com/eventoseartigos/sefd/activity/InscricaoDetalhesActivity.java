@@ -7,12 +7,10 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
-import android.os.PersistableBundle;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -38,14 +36,9 @@ import br.com.eventoseartigos.sefd.model.Inscricao;
 import br.com.eventoseartigos.sefd.model.Minicurso;
 import br.com.eventoseartigos.sefd.model.Palestras;
 import br.com.eventoseartigos.sefd.service.DocumentosNecessarioService;
-import br.com.eventoseartigos.sefd.utils.FormatUtils;
 import br.com.eventoseartigos.sefd.utils.SDCardUtils;
 import id.zelory.compressor.Compressor;
 
-import static android.R.attr.data;
-import static br.com.eventoseartigos.sefd.R.id.card_view_enviados;
-import static br.com.eventoseartigos.sefd.R.id.layout_atividades_gerais;
-import static br.com.eventoseartigos.sefd.R.id.layout_documentos_enviados;
 import static br.com.eventoseartigos.sefd.utils.FormatUtils.formtDate;
 import static br.com.eventoseartigos.sefd.utils.FormatUtils.formtHora;
 

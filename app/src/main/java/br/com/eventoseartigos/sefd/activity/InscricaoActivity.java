@@ -1,9 +1,7 @@
 package br.com.eventoseartigos.sefd.activity;
 
 import android.os.Bundle;
-import android.renderscript.Script;
 import android.support.v7.widget.CardView;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -26,7 +24,6 @@ import java.util.List;
 
 import br.com.eventoseartigos.sefd.R;
 import br.com.eventoseartigos.sefd.annotation.Transacao;
-import br.com.eventoseartigos.sefd.converter.InscricaoConverter;
 import br.com.eventoseartigos.sefd.dao.Prefs;
 import br.com.eventoseartigos.sefd.fragment.Dialog.MinicursoAtividadeDialog;
 import br.com.eventoseartigos.sefd.model.Atividade;
@@ -41,11 +38,6 @@ import br.com.eventoseartigos.sefd.service.GruposService;
 import br.com.eventoseartigos.sefd.service.InscricaoService;
 import br.com.eventoseartigos.sefd.service.PalestrasService;
 import br.com.eventoseartigos.sefd.service.TipoInscricaoService;
-
-import static br.com.eventoseartigos.sefd.R.id.card_view_manha;
-import static br.com.eventoseartigos.sefd.R.id.card_view_palestras;
-import static br.com.eventoseartigos.sefd.R.id.card_view_tarde;
-import static br.com.eventoseartigos.sefd.R.id.layout_atividades_gerais;
 
 public class InscricaoActivity extends BaseActivity implements Transacao {
     private static final String TAG = "InscricaoActivity";
@@ -155,7 +147,7 @@ public class InscricaoActivity extends BaseActivity implements Transacao {
         CardView card_view_manha = (CardView) findViewById(R.id.card_view_manha);
 
         if (gruposList != null && gruposList.size() > 0) {
-            Log.i("Script", "Minicursos: " + gruposList.size());
+
             for (int i = 0; i < gruposList.size(); i++) {
                 if (gruposList.get(i).getNome().equals("Manhã")) {
                     setMinicursoAtividade(gruposList, i, layout_manha, "Manhã");
